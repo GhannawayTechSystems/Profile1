@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Professional Blog</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; }
+    header { background: #111; color: white; padding: 40px 20px; text-align: center; }
+    .profile-pic { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; }
+    .container { width: 90%; max-width: 900px; margin: auto; padding: 20px; }
+    .section-title { font-size: 26px; margin: 30px 0 10px; color: #333; }
+    .projects { display: grid; grid-template-columns: repeat(auto-fill,minmax(250px,1fr)); gap: 20px; }
+    .project-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .project-card img { width: 100%; border-radius: 8px; }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <img id="profilePic" class="profile-pic" src="" alt="Profile Photo">
+  <h1 id="profileName"></h1>
+  <p id="profileTitle"></p>
+</header>
+
+<div class="container">
+
+  <h2 class="section-title">About Me</h2>
+  <p id="profileAbout"></p>
+
+  <h2 class="section-title">Projects</h2>
+  <div class="projects" id="projectsContainer"></div>
+
+</div>
+
+<script>
+  const API_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(data => {
+      const profile = data.profile[0];
+      const projects = data.projects;
+
+      // Profile
+      document.getElementById("profilePic").src = profile[0];
+      document.getElementById("profileName").innerText = profile[1];
+      document.getElementById("profileTitle").innerText = profile[2];
+      document.getElementById("profileAbout").innerText = profile[3];
+
+      // Projects
+      const container = document.getElementById("projectsContainer");
+      projects.forEach(p => {
+        const card = `
+          <div class="project-card">
+            <img src="${p[2]}" alt="${p[0]}">
+            <h3>${p[0]}</h3>
+            <p>${p[1]}</p>
+          </div>
+        `;
+        container.innerHTML += card;
+      });
+    });
+</script>
+
+</body>
+</html>
