@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog | Elvis Ndombi</title>
+<meta name="description" content="Technology, software engineering, and systems architecture articles by Elvis Ndombi.">
+</head>
+<body>
+
+
+<h1>Blog</h1>
+<div id="blogList">Loading posts...</div>
+
+
+<script>
+const API_URL = "PASTE_APPS_SCRIPT_URL";
+
+
+fetch(API_URL)
+.then(r => r.json())
+.then(data => {
+const list = document.getElementById('blogList');
+list.innerHTML = '';
+
+
+data.blog.forEach(p => {
+list.innerHTML += `
+<article>
+<h2>${p.title}</h2>
+<p>${p.excerpt}</p>
+<a href="post.html?slug=${p.slug}">Read more →</a>
+<hr>
+</article>
+`;
+});
+});
+</script>
+
+
+</body>
+</html>
