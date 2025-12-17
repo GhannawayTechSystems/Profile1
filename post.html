@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title id="title">Loading...</title>
+</head>
+<body>
+
+
+<a href="blog.html">← Back to Blog</a>
+
+
+<article>
+<h1 id="postTitle"></h1>
+<p id="postDate"></p>
+<img id="postImage" style="max-width:100%" />
+<div id="postContent"></div>
+</article>
+
+
+<script>
+const API_URL = "PASTE_APPS_SCRIPT_URL";
+const slug = new URLSearchParams(window.location.search).get('slug');
+
+
+fetch(API_URL)
+.then(r => r.json())
+.then(data => {
+const post = data.blog.find(p => p.slug === slug);
+if (!post) {
+document.body.innerHTML = '<h2>Post not found</h2>';
+return;
+}
+
+
+document.title = post.title;
+document.getElementById('postTitle').innerText = post.title;
+document.getElementById('postDate').innerText = post.date;
+document.getElementById('postImage').src = post.image;
+document.getElementById('postContent').innerHTML = post.content;
+});
+</script>
+
+
+</body>
+</html>
