@@ -1,42 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blog | Elvis Ndombi</title>
-<meta name="description" content="Technology, software engineering, and systems architecture articles by Elvis Ndombi.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Insights & Articles | Elvis Ndombi</title>
+  
+  <meta name="description" content="Technology, software engineering, and systems architecture articles by Elvis Ndombi.">
+  
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --border: #e2e8f0;
+      --radius: 16px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #020617;
+        --card: #1e293b;
+        --text: #f1f5f9;
+        --muted: #94a3b8;
+        --primary: #3b82f6;
+        --border: #334155;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Navigation / Back Button */
+    .nav-bar {
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--primary); }
+
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 1.2rem;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1000px;
+      margin: 0 auto 80px;
+    }
+
+    /* Blog Grid Layout */
+    #blogList {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    article {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    article:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      border-color: var(--primary);
+    }
+
+    /* Cover Image Support (if your API provides p.image) */
+    .post-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: var(--border);
+    }
+
+    .post-content {
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    article h2 {
+      margin: 0 0 12px;
+      font-size: 1.4rem;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    article p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .read-more {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .read-more:hover gap: 10px;
+
+    .loading-state {
+      text-align: center;
+      grid-column: 1 / -1;
+      padding: 100px 0;
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 60px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 40px 20px; }
+      #blogList { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
+  <nav class="nav-bar">
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+  </nav>
 
-<h1>Blog</h1>
-<div id="blogList">Loading posts...</div>
+  <header>
+    <h1>Technical Insights</h1>
+    <p>Exploring software architecture, automation, and the future of Ghannaway Tech Systems.</p>
+  </header>
 
+  <main class="container">
+    <div id="blogList">
+      <div class="loading-state">Fetching latest articles...</div>
+    </div>
+  </main>
 
-<script>
-const API_URL = "PASTE_APPS_SCRIPT_URL";
+  <footer>
+    &copy; <span id="year"></span> Ghannaway Tech Systems
+  </footer>
 
+  <script>
+    /* SCRIPT REMAINS FUNCTIONALLY THE SAME AS REQUESTED */
+    const API_URL = "https://script.google.com/macros/s/AKfycbwSXOWD-_EP4UnGFK3ffaZseX-tQJ7aM9lzwM2aninGseWfG5XleABKHDknPU2mmloFMg/exec";
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-fetch(API_URL)
-.then(r => r.json())
-.then(data => {
-const list = document.getElementById('blogList');
-list.innerHTML = '';
+    fetch(API_URL)
+      .then(r => r.json())
+      .then(data => {
+        const list = document.getElementById('blogList');
+        list.innerHTML = '';
 
+        if (!data.blog || data.blog.length === 0) {
+          list.innerHTML = '<p class="loading-state">No posts found.</p>';
+          return;
+        }
 
-data.blog.forEach(p => {
-list.innerHTML += `
-<article>
-<h2>${p.title}</h2>
-<p>${p.excerpt}</p>
-<a href="post.html?slug=${p.slug}">Read more →</a>
-<hr>
-</article>
-`;
-});
-});
-</script>
-
+        data.blog.forEach(p => {
+          // Check if image exists in your Google Sheet data, otherwise use a placeholder
+          const imageUrl = p.image || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80';
+          
+          list.innerHTML += `
+            <article>
+              <img src="${imageUrl}" alt="${p.title}" class="post-image" loading="lazy">
+              <div class="post-content">
+                <h2>${p.title}</h2>
+                <p>${p.excerpt}</p>
+                <a href="post.html?slug=${p.slug}" class="read-more">Read full article →</a>
+              </div>
+            </article>
+          `;
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('blogList').innerHTML = '<p class="loading-state">Failed to connect to the brain. Please try again later.</p>';
+      });
+  </script>
 
 </body>
 </html>
