@@ -1,47 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title id="title">Loading...</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="tabTitle">Loading Article...</title>
+  
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --muted: #666666;
+      --primary: #2563eb;
+      --border: #eeeeee;
+      --code-bg: #f4f4f4;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --text: #f1f5f9;
+        --muted: #94a3b8;
+        --primary: #3b82f6;
+        --border: #1e293b;
+        --code-bg: #1e293b;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8; /* Increased for better readability */
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Navigation */
+    nav {
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Article Layout */
+    article {
+      max-width: 740px; /* Optimal reading width */
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    header.post-header {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    #postTitle {
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.2;
+      margin-bottom: 15px;
+      letter-spacing: -0.02em;
+    }
+
+    #postDate {
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    #postImage {
+      width: 100%;
+      border-radius: 16px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Content Styling */
+    #postContent {
+      font-size: 1.15rem;
+    }
+
+    #postContent h2, #postContent h3 {
+      margin-top: 40px;
+      margin-bottom: 15px;
+    }
+
+    #postContent p {
+      margin-bottom: 25px;
+    }
+
+    /* Handling code snippets if you post technical content */
+    #postContent pre {
+      background: var(--code-bg);
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 60px 20px;
+      margin-top: 80px;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .loading-spinner {
+      text-align: center;
+      padding: 100px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      article { margin: 20px auto; }
+      #postContent { font-size: 1.05rem; }
+    }
+  </style>
 </head>
 <body>
 
+  <nav>
+    <div style="max-width: 740px; margin: auto;">
+      <a href="blog.html" class="back-btn">← Back to Insights</a>
+    </div>
+  </nav>
 
-<a href="blog.html">← Back to Blog</a>
+  <div id="loader" class="loading-spinner">Decrypting article...</div>
 
+  <article id="mainContent" style="display: none;">
+    <header class="post-header">
+      <p id="postDate"></p>
+      <h1 id="postTitle"></h1>
+    </header>
 
-<article>
-<h1 id="postTitle"></h1>
-<p id="postDate"></p>
-<img id="postImage" style="max-width:100%" />
-<div id="postContent"></div>
-</article>
+    <img id="postImage" alt="Cover Image" />
 
+    <div id="postContent"></div>
+  </article>
 
-<script>
-const API_URL = "PASTE_APPS_SCRIPT_URL";
-const slug = new URLSearchParams(window.location.search).get('slug');
+  <footer>
+    <p>Written by <strong>Elvis Ndombi</strong></p>
+    <p style="font-size: 0.8rem; color: var(--muted);">Founder @ Ghannaway Tech Systems</p>
+  </footer>
 
+  <script>
+    /* REMAINS FUNCTIONALLY SAME AS REQUESTED */
+    const API_URL = "https://script.google.com/macros/s/AKfycbwSXOWD-_EP4UnGFK3ffaZseX-tQJ7aM9lzwM2aninGseWfG5XleABKHDknPU2mmloFMg/exec";
+    const slug = new URLSearchParams(window.location.search).get('slug');
 
-fetch(API_URL)
-.then(r => r.json())
-.then(data => {
-const post = data.blog.find(p => p.slug === slug);
-if (!post) {
-document.body.innerHTML = '<h2>Post not found</h2>';
-return;
-}
+    fetch(API_URL)
+      .then(r => r.json())
+      .then(data => {
+        const post = data.blog.find(p => p.slug === slug);
+        
+        if (!post) {
+          document.body.innerHTML = '<div class="loading-spinner"><h2>404: Article not found</h2><a href="blog.html">Return to Blog</a></div>';
+          return;
+        }
 
+        // Hide loader and show content
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
 
-document.title = post.title;
-document.getElementById('postTitle').innerText = post.title;
-document.getElementById('postDate').innerText = post.date;
-document.getElementById('postImage').src = post.image;
-document.getElementById('postContent').innerHTML = post.content;
-});
-</script>
-
+        // Populate Data
+        document.title = post.title + " | Elvis Ndombi";
+        document.getElementById('postTitle').innerText = post.title;
+        document.getElementById('postDate').innerText = post.date || "Tech Insight";
+        document.getElementById('postImage').src = post.image || 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80';
+        document.getElementById('postContent').innerHTML = post.content;
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('loader').innerText = "Failed to load content. Check your connection.";
+      });
+  </script>
 
 </body>
 </html>
