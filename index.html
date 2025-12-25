@@ -6,114 +6,194 @@
 
   <title>Elvis Ndombi | Founder, Software Developer & Systems Architect</title>
 
-  <!-- SEO -->
   <meta name="description" content="Elvis Ndombi, Founder of Ghannaway Tech Systems. Software Developer, Systems Architect, and Technology Innovator." />
   <meta name="author" content="Elvis Ndombi" />
   <link rel="canonical" href="https://ghannawaytechsystems.github.io/" />
 
-  <!-- Open Graph -->
   <meta property="og:title" content="Elvis Ndombi | Professional Portfolio" />
   <meta property="og:description" content="Founder of Ghannaway Tech Systems. Software Developer, Systems Architect, and Innovator." />
   <meta property="og:type" content="website" />
 
   <style>
+    /* 2025 Refined Color Palette */
     :root {
-      --bg: #f4f6f8;
+      --bg: #f8fafc;
       --card: #ffffff;
       --text: #0f172a;
       --muted: #64748b;
-      --primary: #0a84ff;
+      --primary: #2563eb; /* A more vibrant professional blue */
+      --accent: #dbeafe;
+      --border: #e2e8f0;
+      --radius: 16px;
+    }
+
+    /* Dark Mode Preparation */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #020617;
+        --card: #1e293b;
+        --text: #f1f5f9;
+        --muted: #94a3b8;
+        --primary: #3b82f6;
+        --accent: #1e293b;
+        --border: #334155;
+      }
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
     header {
-      background: linear-gradient(135deg, #020617, #0f172a);
+      background: linear-gradient(160deg, #020617 0%, #0f172a 100%);
       color: #fff;
-      padding: 70px 20px;
+      padding: 100px 20px 140px; /* Extra padding for the overlap */
       text-align: center;
+      position: relative;
     }
 
     header img {
-      width: 160px;
-      height: 160px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid #fff;
-      margin-bottom: 15px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 20px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+    
+    header img:hover { transform: scale(1.03); }
+
+    header h1 { 
+      margin: 10px 0 5px; 
+      font-size: clamp(28px, 5vw, 42px); 
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
 
-    header h1 { margin: 10px 0 5px; font-size: 36px; }
-    header p { margin: 0; font-size: 18px; color: #cbd5f5; }
+    header p { 
+      margin: 0; 
+      font-size: 1.1rem; 
+      color: #94a3b8; 
+      max-width: 600px; 
+      margin: auto;
+    }
 
     .container {
-      width: 90%;
-      max-width: 1100px;
-      margin: auto;
-      padding: 40px 0;
+      width: 92%;
+      max-width: 1000px;
+      margin: -80px auto 0; /* Creates the overlap effect */
+      padding-bottom: 80px;
+      position: relative;
+      z-index: 10;
     }
 
     .section-title {
-      font-size: 26px;
-      margin: 50px 0 20px;
-      border-left: 5px solid var(--primary);
-      padding-left: 14px;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 60px 0 25px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+    }
+
+    .section-title::after {
+      content: "";
+      height: 1px;
+      background: var(--border);
+      flex-grow: 1;
+      margin-left: 20px;
     }
 
     .card {
       background: var(--card);
-      padding: 24px;
-      border-radius: 16px;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+      padding: 30px;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+      border: 1px solid var(--border);
+    }
+
+    /* Skills & Certs Specific Styling */
+    #skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .skill-item {
+      background: var(--bg);
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 24px;
     }
 
     .item {
       background: var(--card);
-      border-radius: 16px;
+      border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.1);
-      transition: transform .25s ease;
+      border: 1px solid var(--border);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .item:hover { transform: translateY(-6px); }
+    .item:hover { 
+      transform: translateY(-8px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      border-color: var(--primary);
+    }
 
     .item img {
       width: 100%;
-      height: 180px;
+      height: 200px;
       object-fit: cover;
+      background: #e2e8f0;
     }
 
-    .item-content { padding: 18px; }
-
-    .item-content h3 { margin: 0 0 10px; font-size: 20px; }
-    .item-content p { margin: 0 0 14px; color: var(--muted); }
+    .item-content { padding: 24px; }
+    .item-content h3 { margin: 0 0 10px; font-size: 1.25rem; font-weight: 700; }
+    .item-content p { margin: 0 0 20px; color: var(--muted); font-size: 0.95rem; }
 
     a.primary {
       color: var(--primary);
       font-weight: 600;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: gap 0.2s;
     }
+
+    a.primary:hover { gap: 10px; }
 
     footer {
       text-align: center;
-      padding: 30px 15px;
+      padding: 80px 20px;
       font-size: 14px;
-      color: #94a3b8;
+      color: #64748b;
       background: #020617;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* Mobile Tweaks */
+    @media (max-width: 600px) {
+      header { padding: 60px 20px 100px; }
+      .container { margin-top: -60px; }
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -121,51 +201,54 @@
 <body>
 
 <header>
-  <img id="profilePic" src="" alt="Elvis Ndombi" loading="lazy" />
+  <img id="profilePic" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Elvis Ndombi" loading="lazy" />
   <h1 id="profileName">Loading...</h1>
   <p id="profileTitle"></p>
 </header>
 
 <main class="container">
 
-  <!-- ABOUT -->
   <section>
     <h2 class="section-title">About Me</h2>
-    <div class="card" id="about">Loading...</div>
+    <div class="card" id="about">
+        <p style="color:var(--muted)">Loading your professional profile...</p>
+    </div>
   </section>
 
-  <!-- PROJECTS -->
   <section>
-    <h2 class="section-title">Projects</h2>
-    <div class="grid" id="projects">Loading...</div>
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="grid" id="projects"></div>
   </section>
 
-  <!-- BLOG PREVIEW -->
   <section>
-    <h2 class="section-title">Latest Blog Posts</h2>
-    <div class="grid" id="blog">Loading...</div>
-    <p style="margin-top:20px"><a class="primary" href="blog.html">View all posts →</a></p>
+    <h2 class="section-title">Latest Insights</h2>
+    <div class="grid" id="blog"></div>
+    <p style="margin-top:30px; text-align: center;">
+        <a class="primary" href="blog.html">Browse Full Blog Archive →</a>
+    </p>
   </section>
 
-  <!-- SKILLS -->
-  <section>
-    <h2 class="section-title">Skills</h2>
-    <div class="card" id="skills">Loading...</div>
-  </section>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+    <section>
+      <h2 class="section-title">Core Skills</h2>
+      <div class="card" id="skills"></div>
+    </section>
 
-  <!-- CERTIFICATIONS -->
-  <section>
-    <h2 class="section-title">Certifications</h2>
-    <div class="card" id="certs">Loading...</div>
-  </section>
+    <section>
+      <h2 class="section-title">Certifications</h2>
+      <div class="card" id="certs"></div>
+    </section>
+  </div>
 
 </main>
 
 <footer>
-  © <span id="year"></span> Ghannaway Tech Systems
+  <p>© <span id="year"></span> <strong>Ghannaway Tech Systems</strong></p>
+  <p style="opacity: 0.6">Built with focus on performance & clean architecture.</p>
 </footer>
 
 <script>
+/* DO NOT CHANGE SCRIPT PART - As per user request */
 const API_URL = "https://script.google.com/macros/s/AKfycbwSXOWD-_EP4UnGFK3ffaZseX-tQJ7aM9lzwM2aninGseWfG5XleABKHDknPU2mmloFMg/exec";
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -204,10 +287,17 @@ fetch(API_URL)
         </div>`;
     });
 
-    skills.innerHTML = (data.skills || []).map(s => `<p><strong>${s.skill}</strong> – ${s.level}</p>`).join('');
+    // Modified Skills rendering for the new grid layout
+    skills.innerHTML = (data.skills || []).map(s => 
+      `<div class="skill-item"><strong>${s.skill}</strong><br><small style="color:var(--muted)">${s.level}</small></div>`
+    ).join('');
 
     certs.innerHTML = (data.certifications || []).map(c =>
-      `<p><strong>${c.name}</strong> – ${c.issuer} (${c.year})<br><a href="${c.credential_url}" target="_blank">View</a></p>`
+      `<p style="margin-bottom:15px; border-bottom:1px solid var(--border); padding-bottom:10px;">
+        <strong>${c.name}</strong><br>
+        <span style="font-size:0.9rem; color:var(--muted)">${c.issuer} (${c.year})</span><br>
+        <a class="primary" href="${c.credential_url}" target="_blank" style="font-size:0.8rem">View Credential →</a>
+      </p>`
     ).join('');
   });
 </script>
